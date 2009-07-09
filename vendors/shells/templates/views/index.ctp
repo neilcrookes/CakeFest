@@ -1,54 +1,36 @@
-
-        <table class="table">
-          <tr>
-            <th class="first"><input type="checkbox" class="checkbox toggle" /></th>
-            <th>ID</th>
-            <th>Login</th>
-            <th>Name</th>
-            <th>Surname</th>
-            <th class="last">&nbsp;</th>
-          </tr>
-          <tr class="odd">
-            <td><input type="checkbox" class="checkbox" name="id" value="1" /></td><td>1</td><td>hulk</td><td>Hulk</td><td>Hogan</td><td class="last"><a href="#">show</a> | <a href="#">edit</a> | <a href="#">destroy</a></td>
-          </tr>
-          <tr class="even">
-            <td><input type="checkbox" class="checkbox" name="id" value="1" /></td><td>2</td><td>ultimate</td><td>Ultimate</td><td>Warrior</td><td class="last"><a href="#">show</a> | <a href="#">edit</a> | <a href="#">destroy</a></td>
-          </tr>
-          <tr class="odd">
-            <td><input type="checkbox" class="checkbox" name="id" value="1" /></td><td>3</td><td>andre</td><td>Andre</td><td>The Giant</td><td class="last"><a href="#">show</a> | <a href="#">edit</a> | <a href="#">destroy</a></td>
-          </tr>
-          <tr class="even">
-            <td><input type="checkbox" class="checkbox" name="id" value="1" /></td><td>4</td><td>machoman</td><td>Macho Man</td><td>Randy Savage</td><td class="last"><a href="#">show</a> | <a href="#">edit</a> | <a href="#">destroy</a></td>
-          </tr>
-        </table>
-        <div class="actions-bar">
-          <div class="actions">
-            <input type="submit" class="button" value="Delete" />
-          </div>
-          <div class="pagination">
-            <span class="disabled prev_page">« Previous</span><span class="current">1</span><a rel="next" href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a><a href="#">8</a><a href="#">9</a><a href="#">10</a><a href="#">11</a><a rel="next" class="next_page" href="#">Next »</a>
-          </div>
-          <div class="clear"></div>
-        </div>
-
-
-
-
-      <div id="main">
-
-
-<div class="block" id="block-tables">
-  <h2><?php echo "<?php __('{$pluralHumanName}');?>";?></h2>
-  <p>
-  <?php echo "<?php
-  echo \$paginator->counter(array(
-  'format' => __('Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%', true)
-  ));
-  ?>";?>
-  </p>
-  <div class="content">
-    <div class="inner">
-      <form action="#" class="form">
+<?php
+/* SVN FILE: $Id: index.ctp 7945 2008-12-19 02:16:01Z gwoo $ */
+/**
+ *
+ * PHP versions 4 and 5
+ *
+ * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
+ * Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @filesource
+ * @copyright     Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
+ * @package       cake
+ * @subpackage    cake.cake.console.libs.templates.views
+ * @since         CakePHP(tm) v 1.2.0.5234
+ * @version       $Revision: 7945 $
+ * @modifiedby    $LastChangedBy: gwoo $
+ * @lastmodified  $Date: 2008-12-18 18:16:01 -0800 (Thu, 18 Dec 2008) $
+ * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
+ */
+?>
+<div class="<?php echo $pluralVar;?> index">
+<h2><?php echo "<?php __('{$pluralHumanName}');?>";?></h2>
+<p>
+<?php echo "<?php
+echo \$paginator->counter(array(
+'format' => __('Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%', true)
+));
+?>";?>
+</p>
 <table cellpadding="0" cellspacing="0">
 <tr>
 <?php  foreach ($fields as $field):?>
@@ -60,12 +42,12 @@
 echo "<?php
 \$i = 0;
 foreach (\${$pluralVar} as \${$singularVar}):
-	\$class = 'odd';
+	\$class = null;
 	if (\$i++ % 2 == 0) {
-		\$class = 'even';
+		\$class = ' class=\"altrow\"';
 	}
 ?>\n";
-	echo "\t<tr class=\"<?php echo \$class;?>\">\n";
+	echo "\t<tr<?php echo \$class;?>>\n";
 		foreach ($fields as $field) {
 			$isKey = false;
 			if (!empty($associations['belongsTo'])) {
@@ -92,9 +74,6 @@ foreach (\${$pluralVar} as \${$singularVar}):
 echo "<?php endforeach; ?>\n";
 ?>
 </table>
-      </form>
-    </div>
-  </div>
 </div>
 <div class="paging">
 <?php echo "\t<?php echo \$paginator->prev('<< '.__('previous', true), array(), null, array('class'=>'disabled'));?>\n";?>
@@ -118,22 +97,3 @@ echo "<?php endforeach; ?>\n";
 ?>
 	</ul>
 </div>
-
-      </div>
-
-      <div id="sidebar">
-        <div class="block">
-          <h3>Sidebar</h3>
-          <ul class="navigation">
-            <li><a href="#">Link 1</a></li>
-            <li><a href="#">Link 2</a></li>
-            <li><a href="#">Link 3</a></li>
-          </ul>
-        </div>
-        <div class="block">
-          <h3>Simple Block</h3>
-          <div class="content">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          </div>
-        </div>
-      </div>
