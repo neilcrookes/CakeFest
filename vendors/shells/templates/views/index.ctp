@@ -5,7 +5,16 @@
 <?php echo "<?php echo \$this->element('admin_pagination_count'); ?>"; ?>
 <table cellpadding="0" cellspacing="0" class="table">
 <tr>
-<?php  foreach ($fields as $index => $field):?>
+<?php
+$ignore = array('lft', 'rght', 'parent_id', 'slug', 'child_count', 'direct_child_count');
+foreach ($fields as $index => $field) :
+  if (in_array($field, $ignore)) {
+    continue;
+  }
+  if ($schema[$field]['type'] == 'text') {
+    continue;
+  }
+  ?>
 	<th<?php if ($index == 0) echo ' class="first"'; ?>><?php echo "<?php echo \$paginator->sort('{$field}');?>";?></th>
 <?php endforeach;?>
 	<th class="last"><?php echo "<?php __('Actions');?>";?></th>
@@ -21,12 +30,22 @@ foreach (\${$pluralVar} as \${$singularVar}):
 ?>\n";
 	echo "\t<tr<?php echo \$class;?>>\n";
 		foreach ($fields as $field) {
+      if (in_array($field, $ignore)) {
+        continue;
+      }
+      if ($schema[$field]['type'] == 'text') {
+        continue;
+      }
+      if ($schema[$field]['type'] == 'datetime') {
+        echo "\t\t<td>\n\t\t\t<?php echo \$time->niceShort(\${$singularVar}['{$modelClass}']['{$field}']); ?>\n\t\t</td>\n";
+        continue;
+      }
 			$isKey = false;
 			if (!empty($associations['belongsTo'])) {
 				foreach ($associations['belongsTo'] as $alias => $details) {
 					if ($field === $details['foreignKey']) {
 						$isKey = true;
-						echo "\t\t<td>\n\t\t\t<?php echo \$html->link(\${$singularVar}['{$alias}']['{$details['displayField']}'], array('controller'=> '{$details['controller']}', 'action'=>'view', \${$singularVar}['{$alias}']['{$details['primaryKey']}'])); ?>\n\t\t</td>\n";
+						echo "\t\t<td>\n\t\t\t<?php echo \$html->link(\${$singularVar}['{$alias}']['{$details['displayField']}'], array('controller'=> '{$details['controller']}', 'action'=>'edit', \${$singularVar}['{$alias}']['{$details['primaryKey']}'])); ?>\n\t\t</td>\n";
 						break;
 					}
 				}
@@ -37,7 +56,6 @@ foreach (\${$pluralVar} as \${$singularVar}):
 		}
 
 		echo "\t\t<td class=\"actions\">\n";
-		echo "\t\t\t<?php echo \$html->link(__('View', true), array('action'=>'view', \${$singularVar}['{$modelClass}']['{$primaryKey}'])); ?>\n";
 	 	echo "\t\t\t<?php echo \$html->link(__('Edit', true), array('action'=>'edit', \${$singularVar}['{$modelClass}']['{$primaryKey}'])); ?>\n";
 	 	echo "\t\t\t<?php echo \$html->link(__('Delete', true), array('action'=>'delete', \${$singularVar}['{$modelClass}']['{$primaryKey}']), null, sprintf(__('Are you sure you want to delete # %s?', true), \${$singularVar}['{$modelClass}']['{$primaryKey}'])); ?>\n";
 		echo "\t\t</td>\n";
