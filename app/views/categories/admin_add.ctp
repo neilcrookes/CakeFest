@@ -1,25 +1,27 @@
-<div class="categories form">
-<?php echo $form->create('Category');?>
-	<fieldset>
- 		<legend><?php __('Add Category');?></legend>
+<div id="main"><div class="block" id="block-forms">
+<h2 class="title"><?php __('Add Category');?></h2>
+<div class="content">
+<div class="inner">
+<?php echo $form->create('Category', array('class' => 'form'));?>
 	<?php
-		echo $form->input('parent_id');
-		echo $form->input('lft');
-		echo $form->input('rght');
-		echo $form->input('name');
-		echo $form->input('slug');
-		echo $form->input('direct_child_count');
-		echo $form->input('child_count');
-		echo $form->input('post_count');
-		echo $form->input('active');
+		echo $admin->input('parent_id');
+		echo $admin->input('lft');
+		echo $admin->input('rght');
+		echo $admin->input('name');
+		echo $admin->input('slug');
+		echo $admin->input('direct_child_count');
+		echo $admin->input('child_count');
+		echo $admin->input('post_count');
+		echo $admin->input('active');
 	?>
-	</fieldset>
 <?php echo $form->end('Submit');?>
-</div>
+</div></div></div></div>
+<div id="sidebar"><div class="block"><h3>Actions</h3>
 <div class="actions">
-	<ul>
+	<ul class="navigation">
 		<li><?php echo $html->link(__('List Categories', true), array('action'=>'index'));?></li>
 		<li><?php echo $html->link(__('List Posts', true), array('controller'=> 'posts', 'action'=>'index')); ?> </li>
 		<li><?php echo $html->link(__('New Post', true), array('controller'=> 'posts', 'action'=>'add')); ?> </li>
 	</ul>
 </div>
+</div></div>

@@ -1,22 +1,24 @@
-<div class="comments form">
-<?php echo $form->create('Comment');?>
-	<fieldset>
- 		<legend><?php __('Add Comment');?></legend>
+<div id="main"><div class="block" id="block-forms">
+<h2 class="title"><?php __('Add Comment');?></h2>
+<div class="content">
+<div class="inner">
+<?php echo $form->create('Comment', array('class' => 'form'));?>
 	<?php
-		echo $form->input('post_id');
-		echo $form->input('name');
-		echo $form->input('email');
-		echo $form->input('website');
-		echo $form->input('comment');
-		echo $form->input('active');
+		echo $admin->input('post_id');
+		echo $admin->input('name');
+		echo $admin->input('email');
+		echo $admin->input('website');
+		echo $admin->input('comment');
+		echo $admin->input('active');
 	?>
-	</fieldset>
 <?php echo $form->end('Submit');?>
-</div>
+</div></div></div></div>
+<div id="sidebar"><div class="block"><h3>Actions</h3>
 <div class="actions">
-	<ul>
+	<ul class="navigation">
 		<li><?php echo $html->link(__('List Comments', true), array('action'=>'index'));?></li>
 		<li><?php echo $html->link(__('List Posts', true), array('controller'=> 'posts', 'action'=>'index')); ?> </li>
 		<li><?php echo $html->link(__('New Post', true), array('controller'=> 'posts', 'action'=>'add')); ?> </li>
 	</ul>
 </div>
+</div></div>
