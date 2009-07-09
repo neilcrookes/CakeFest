@@ -2,7 +2,7 @@
 <h2 class="title"><?php echo "<?php __('{$pluralHumanName}');?>";?></h2>
 <div class="content">
 <div class="inner">
-<?php echo "<?php echo \$this->element('admin_pagination_count');"; ?>
+<?php echo "<?php echo \$this->element('admin_pagination_count'); ?>"; ?>
 <table cellpadding="0" cellspacing="0" class="table">
 <tr>
 <?php  foreach ($fields as $index => $field):?>
@@ -46,7 +46,7 @@ foreach (\${$pluralVar} as \${$singularVar}):
 echo "<?php endforeach; ?>\n";
 ?>
 </table><div class="actions-bar">
-<?php echo "<?php echo \$this->element('admin_pagination_links');"; ?>
+<?php echo "<?php echo \$this->element('admin_pagination_links'); ?>"; ?>
 <div class="clear"></div></div></div></div></div></div>
 <div id="sidebar"><div class="block"><h3>Actions</h3>
 	<ul class="navigation">
