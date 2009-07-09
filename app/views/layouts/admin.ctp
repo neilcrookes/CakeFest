@@ -33,7 +33,7 @@
               $class[] = 'active';
             }
             $label = Inflector::humanize($controller);
-            echo $html->tag('li', $html->link($label, array('controller' => $controller)), implode(' ', $class));
+            echo $html->tag('li', $html->link($label, array('controller' => $controller, 'action' => 'index')), implode(' ', $class));
           }
           ?>
         </ul>
