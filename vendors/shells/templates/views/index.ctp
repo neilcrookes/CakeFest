@@ -2,13 +2,7 @@
 <h2 class="title"><?php echo "<?php __('{$pluralHumanName}');?>";?></h2>
 <div class="content">
 <div class="inner">
-<p>
-<?php echo "<?php
-echo \$paginator->counter(array(
-'format' => __('Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%', true)
-));
-?>";?>
-</p>
+<?php echo "<?php echo \$this->element('admin_pagination_count');"; ?>
 <table cellpadding="0" cellspacing="0" class="table">
 <tr>
 <?php  foreach ($fields as $index => $field):?>
@@ -52,11 +46,8 @@ foreach (\${$pluralVar} as \${$singularVar}):
 echo "<?php endforeach; ?>\n";
 ?>
 </table><div class="actions-bar">
-<div class="paging">
-<?php echo "\t<?php echo \$paginator->prev('<< '.__('previous', true), array('tag' => 'span'), null, array('tag' => 'span', 'class'=>'disabled'));?>\n";?>
-<?php echo "\t<?php echo \$paginator->numbers(array('separator' => null));?>\n"?>
-<?php echo "\t<?php echo \$paginator->next(__('next', true).' >>', array('tag' => 'span'), null, array('tag' => 'span', 'class'=>'disabled'));?>\n";?>
-</div><div class="clear"></div></div></div></div></div></div>
+<?php echo "<?php echo \$this->element('admin_pagination_links');"; ?>
+<div class="clear"></div></div></div></div></div></div>
 <div id="sidebar"><div class="block"><h3>Actions</h3>
 	<ul class="navigation">
 		<li><?php echo "<?php echo \$html->link(__('New {$singularHumanName}', true), array('action'=>'add')); ?>";?></li>
