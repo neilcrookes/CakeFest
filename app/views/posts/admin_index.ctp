@@ -2,13 +2,7 @@
 <h2 class="title"><?php __('Posts');?></h2>
 <div class="content">
 <div class="inner">
-<p>
-<?php
-echo $paginator->counter(array(
-'format' => __('Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%', true)
-));
-?></p>
-<table cellpadding="0" cellspacing="0" class="table">
+<?php echo $this->element('admin_pagination_count'); ?><table cellpadding="0" cellspacing="0" class="table">
 <tr>
 	<th class="first"><?php echo $paginator->sort('id');?></th>
 	<th><?php echo $paginator->sort('category_id');?></th>
@@ -73,11 +67,7 @@ foreach ($posts as $post):
 	</tr>
 <?php endforeach; ?>
 </table><div class="actions-bar">
-<div class="paging">
-	<?php echo $paginator->prev('<< '.__('previous', true), array('tag' => 'span'), null, array('tag' => 'span', 'class'=>'disabled'));?>
-	<?php echo $paginator->numbers(array('separator' => null));?>
-	<?php echo $paginator->next(__('next', true).' >>', array('tag' => 'span'), null, array('tag' => 'span', 'class'=>'disabled'));?>
-</div><div class="clear"></div></div></div></div></div></div>
+<?php echo $this->element('admin_pagination_links'); ?><div class="clear"></div></div></div></div></div></div>
 <div id="sidebar"><div class="block"><h3>Actions</h3>
 	<ul class="navigation">
 		<li><?php echo $html->link(__('New Post', true), array('action'=>'add')); ?></li>
