@@ -1,30 +1,31 @@
-<div class="<?php echo $pluralVar;?> form">
-<?php echo "<?php echo \$form->create('{$modelClass}');?>\n";?>
-	<fieldset>
- 		<legend><?php echo "<?php __('".Inflector::humanize($action)." {$singularHumanName}');?>";?></legend>
+<div id="main"><div class="block" id="block-forms">
+<h2 class="title"><?php echo "<?php __('".Inflector::humanize($action)." {$singularHumanName}');?>";?></h2>
+<div class="content">
+<div class="inner">
+<?php echo "<?php echo \$form->create('{$modelClass}', array('class' => 'form'));?>\n";?>
 <?php
 		echo "\t<?php\n";
 		foreach ($fields as $field) {
 			if ($action == 'add' && $field == $primaryKey) {
 				continue;
 			} elseif (!in_array($field, array('created', 'modified', 'updated'))) {
-				echo "\t\techo \$form->input('{$field}');\n";
+				echo "\t\techo \$admin->input('{$field}');\n";
 			}
 		}
 		if (!empty($associations['hasAndBelongsToMany'])) {
 			foreach ($associations['hasAndBelongsToMany'] as $assocName => $assocData) {
-				echo "\t\techo \$form->input('{$assocName}');\n";
+				echo "\t\techo \$admin->input('{$assocName}');\n";
 			}
 		}
 		echo "\t?>\n";
 ?>
-	</fieldset>
 <?php
 	echo "<?php echo \$form->end('Submit');?>\n";
 ?>
-</div>
+</div></div></div></div>
+<div id="sidebar"><div class="block"><h3>Actions</h3>
 <div class="actions">
-	<ul>
+	<ul class="navigation">
 <?php if ($action != 'add'):?>
 		<li><?php echo "<?php echo \$html->link(__('Delete', true), array('action'=>'delete', \$form->value('{$modelClass}.{$primaryKey}')), null, sprintf(__('Are you sure you want to delete # %s?', true), \$form->value('{$modelClass}.{$primaryKey}'))); ?>";?></li>
 <?php endif;?>
@@ -43,3 +44,4 @@
 ?>
 	</ul>
 </div>
+</div></div>

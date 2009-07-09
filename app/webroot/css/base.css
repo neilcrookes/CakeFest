@@ -216,7 +216,7 @@ input.checkbox {
   padding: 0;
 }
 
-.form .group {
+.form .input {
   margin-bottom: 15px;
 }
 
@@ -242,7 +242,7 @@ input.checkbox {
   float: right;
 }
 
-.form label.label, .form input.text_field, .form textarea.text_area {
+.form label.label, .form input.text, .form textarea {
   font-size: 1.2em;
   padding: 1px 0;
   margin: 0;
@@ -270,11 +270,11 @@ input.checkbox {
   display: inline;
 }
 
-.form .fieldWithErrors .error {
+.form .error-message {
   color: red;
 }
 
-.form input.text_field, .form textarea.text_area {
+.form input.text, .form textarea {
   width: 100%;
   border-width: 1px;
   border-style: solid;

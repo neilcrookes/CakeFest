@@ -1,7 +1,7 @@
 <?php
 class AppController extends Controller {
 
-  var $helpers = array('Time');
+  var $helpers = array('Time', 'Admin');
 
   var $paginate = array(
     'limit' => 10

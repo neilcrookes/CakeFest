@@ -257,9 +257,13 @@ hr {
   color: #666666;
 }
 
-.form input.text_field, .form textarea.text_area {
+.form input.text, .form textarea {
   width: 100%;
   border: 1px solid #cfcfcf;
+}
+
+.form .error input.text, .form .error textarea {
+  border-color: red;
 }
 
 .form input.button {
