@@ -5,13 +5,7 @@
 <?php echo $this->element('admin_pagination_count'); ?><table cellpadding="0" cellspacing="0" class="table">
 <tr>
 	<th class="first"><?php echo $paginator->sort('id');?></th>
-	<th><?php echo $paginator->sort('parent_id');?></th>
-	<th><?php echo $paginator->sort('lft');?></th>
-	<th><?php echo $paginator->sort('rght');?></th>
 	<th><?php echo $paginator->sort('name');?></th>
-	<th><?php echo $paginator->sort('slug');?></th>
-	<th><?php echo $paginator->sort('direct_child_count');?></th>
-	<th><?php echo $paginator->sort('child_count');?></th>
 	<th><?php echo $paginator->sort('post_count');?></th>
 	<th><?php echo $paginator->sort('active');?></th>
 	<th><?php echo $paginator->sort('created');?></th>
@@ -31,25 +25,7 @@ foreach ($categories as $category):
 			<?php echo $category['Category']['id']; ?>
 		</td>
 		<td>
-			<?php echo $category['Category']['parent_id']; ?>
-		</td>
-		<td>
-			<?php echo $category['Category']['lft']; ?>
-		</td>
-		<td>
-			<?php echo $category['Category']['rght']; ?>
-		</td>
-		<td>
 			<?php echo $category['Category']['name']; ?>
-		</td>
-		<td>
-			<?php echo $category['Category']['slug']; ?>
-		</td>
-		<td>
-			<?php echo $category['Category']['direct_child_count']; ?>
-		</td>
-		<td>
-			<?php echo $category['Category']['child_count']; ?>
 		</td>
 		<td>
 			<?php echo $category['Category']['post_count']; ?>
@@ -58,13 +34,12 @@ foreach ($categories as $category):
 			<?php echo $category['Category']['active']; ?>
 		</td>
 		<td>
-			<?php echo $category['Category']['created']; ?>
+			<?php echo $time->niceShort($category['Category']['created']); ?>
 		</td>
 		<td>
-			<?php echo $category['Category']['modified']; ?>
+			<?php echo $time->niceShort($category['Category']['modified']); ?>
 		</td>
 		<td class="actions">
-			<?php echo $html->link(__('View', true), array('action'=>'view', $category['Category']['id'])); ?>
 			<?php echo $html->link(__('Edit', true), array('action'=>'edit', $category['Category']['id'])); ?>
 			<?php echo $html->link(__('Delete', true), array('action'=>'delete', $category['Category']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $category['Category']['id'])); ?>
 		</td>

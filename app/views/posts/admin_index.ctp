@@ -7,9 +7,6 @@
 	<th class="first"><?php echo $paginator->sort('id');?></th>
 	<th><?php echo $paginator->sort('category_id');?></th>
 	<th><?php echo $paginator->sort('title');?></th>
-	<th><?php echo $paginator->sort('slug');?></th>
-	<th><?php echo $paginator->sort('abstract');?></th>
-	<th><?php echo $paginator->sort('body');?></th>
 	<th><?php echo $paginator->sort('comment_count');?></th>
 	<th><?php echo $paginator->sort('active');?></th>
 	<th><?php echo $paginator->sort('published');?></th>
@@ -30,19 +27,10 @@ foreach ($posts as $post):
 			<?php echo $post['Post']['id']; ?>
 		</td>
 		<td>
-			<?php echo $html->link($post['Category']['name'], array('controller'=> 'categories', 'action'=>'view', $post['Category']['id'])); ?>
+			<?php echo $html->link($post['Category']['name'], array('controller'=> 'categories', 'action'=>'edit', $post['Category']['id'])); ?>
 		</td>
 		<td>
 			<?php echo $post['Post']['title']; ?>
-		</td>
-		<td>
-			<?php echo $post['Post']['slug']; ?>
-		</td>
-		<td>
-			<?php echo $post['Post']['abstract']; ?>
-		</td>
-		<td>
-			<?php echo $post['Post']['body']; ?>
 		</td>
 		<td>
 			<?php echo $post['Post']['comment_count']; ?>
@@ -51,16 +39,15 @@ foreach ($posts as $post):
 			<?php echo $post['Post']['active']; ?>
 		</td>
 		<td>
-			<?php echo $post['Post']['published']; ?>
+			<?php echo $time->niceShort($post['Post']['published']); ?>
 		</td>
 		<td>
-			<?php echo $post['Post']['created']; ?>
+			<?php echo $time->niceShort($post['Post']['created']); ?>
 		</td>
 		<td>
-			<?php echo $post['Post']['modified']; ?>
+			<?php echo $time->niceShort($post['Post']['modified']); ?>
 		</td>
 		<td class="actions">
-			<?php echo $html->link(__('View', true), array('action'=>'view', $post['Post']['id'])); ?>
 			<?php echo $html->link(__('Edit', true), array('action'=>'edit', $post['Post']['id'])); ?>
 			<?php echo $html->link(__('Delete', true), array('action'=>'delete', $post['Post']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $post['Post']['id'])); ?>
 		</td>

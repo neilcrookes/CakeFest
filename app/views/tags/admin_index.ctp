@@ -24,7 +24,6 @@ foreach ($tags as $tag):
 			<?php echo $tag['Tag']['tag']; ?>
 		</td>
 		<td class="actions">
-			<?php echo $html->link(__('View', true), array('action'=>'view', $tag['Tag']['id'])); ?>
 			<?php echo $html->link(__('Edit', true), array('action'=>'edit', $tag['Tag']['id'])); ?>
 			<?php echo $html->link(__('Delete', true), array('action'=>'delete', $tag['Tag']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $tag['Tag']['id'])); ?>
 		</td>
