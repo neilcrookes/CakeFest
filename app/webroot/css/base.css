@@ -333,4 +333,9 @@ ul.list li .item .avatar {
   padding: 10px 20px;
 }
 
-
+div.disabled {
+  display: inline;
+  float: none;
+  clear: none;
+  color: #C0C0C0;
+}

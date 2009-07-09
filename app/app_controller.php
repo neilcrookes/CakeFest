@@ -1,6 +1,7 @@
 <?php
 class AppController extends Controller {
 
+  var $components = array('RequestHandler');
   var $helpers = array('Time', 'Admin');
 
   var $paginate = array(

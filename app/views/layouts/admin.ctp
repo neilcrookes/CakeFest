@@ -7,11 +7,15 @@
 		echo $html->meta('icon');
 		echo $html->css(array('base', 'drastic-dark'));
 		echo $scripts_for_layout;
-	?>
+    echo $javascript->link(array('prototype-1.6.0.3'));
+  ?>
 </head>
 <body>
   <div id="container">
     <div id="header">
+      <div id="spinner" style="display: none; float: right;">
+        <?php echo $html->image('spinner.gif'); ?>
+      </div>
       <h1><a href="/index.html/">Cake Fest Berlin Demo</a></h1>
       <div id="user-navigation">
         <ul>
@@ -42,7 +46,9 @@
     </div>
     <div id="wrapper">
       <?php $session->flash(); ?>
+      <div id="content">
       <?php echo $content_for_layout; ?>
+      </div>
       <div class="clear"></div>
       <div id="footer">
         <div class="block">
