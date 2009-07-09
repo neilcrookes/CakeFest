@@ -1,6 +1,10 @@
 <?php
 class AppController extends Controller {
 
+  var $paginate = array(
+    'limit' => 10
+  );
+
   function beforeFilter() {
     $this->_checkAdmin();
   }

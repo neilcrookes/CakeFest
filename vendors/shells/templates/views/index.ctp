@@ -1,5 +1,7 @@
-<div class="<?php echo $pluralVar;?> index">
-<h2><?php echo "<?php __('{$pluralHumanName}');?>";?></h2>
+<div id="main"><div class="block" id="block-tables">
+<h2 class="title"><?php echo "<?php __('{$pluralHumanName}');?>";?></h2>
+<div class="content">
+<div class="inner">
 <p>
 <?php echo "<?php
 echo \$paginator->counter(array(
@@ -7,20 +9,20 @@ echo \$paginator->counter(array(
 ));
 ?>";?>
 </p>
-<table cellpadding="0" cellspacing="0">
+<table cellpadding="0" cellspacing="0" class="table">
 <tr>
-<?php  foreach ($fields as $field):?>
-	<th><?php echo "<?php echo \$paginator->sort('{$field}');?>";?></th>
+<?php  foreach ($fields as $index => $field):?>
+	<th<?php if ($index == 0) echo ' class="first"'; ?>><?php echo "<?php echo \$paginator->sort('{$field}');?>";?></th>
 <?php endforeach;?>
-	<th class="actions"><?php echo "<?php __('Actions');?>";?></th>
+	<th class="last"><?php echo "<?php __('Actions');?>";?></th>
 </tr>
 <?php
 echo "<?php
 \$i = 0;
 foreach (\${$pluralVar} as \${$singularVar}):
-	\$class = null;
+	\$class = ' class=\"odd\"';
 	if (\$i++ % 2 == 0) {
-		\$class = ' class=\"altrow\"';
+		\$class = ' class=\"even\"';
 	}
 ?>\n";
 	echo "\t<tr<?php echo \$class;?>>\n";
@@ -49,15 +51,14 @@ foreach (\${$pluralVar} as \${$singularVar}):
 
 echo "<?php endforeach; ?>\n";
 ?>
-</table>
-</div>
+</table><div class="actions-bar">
 <div class="paging">
-<?php echo "\t<?php echo \$paginator->prev('<< '.__('previous', true), array(), null, array('class'=>'disabled'));?>\n";?>
- | <?php echo "\t<?php echo \$paginator->numbers();?>\n"?>
-<?php echo "\t<?php echo \$paginator->next(__('next', true).' >>', array(), null, array('class'=>'disabled'));?>\n";?>
-</div>
-<div class="actions">
-	<ul>
+<?php echo "\t<?php echo \$paginator->prev('<< '.__('previous', true), array('tag' => 'span'), null, array('tag' => 'span', 'class'=>'disabled'));?>\n";?>
+<?php echo "\t<?php echo \$paginator->numbers(array('separator' => null));?>\n"?>
+<?php echo "\t<?php echo \$paginator->next(__('next', true).' >>', array('tag' => 'span'), null, array('tag' => 'span', 'class'=>'disabled'));?>\n";?>
+</div><div class="clear"></div></div></div></div></div></div>
+<div id="sidebar"><div class="block"><h3>Actions</h3>
+	<ul class="navigation">
 		<li><?php echo "<?php echo \$html->link(__('New {$singularHumanName}', true), array('action'=>'add')); ?>";?></li>
 <?php
 	$done = array();
@@ -72,4 +73,5 @@ echo "<?php endforeach; ?>\n";
 	}
 ?>
 	</ul>
+</div>
 </div>

@@ -51,7 +51,7 @@ body {
 }
 
 
-.actions-bar .pagination {
+.actions-bar .paging {
   float: right;
   padding: 1px 0;
 }
@@ -157,9 +157,9 @@ body {
   padding-bottom: 20px;
 }
 
-/* pagination */
+/* paging */
 
-.pagination a, .pagination span {
+.paging a, .paging span.current, .paging span.disabled {
   padding: 2px 5px;
   margin-right: 5px; 
   display: block;
@@ -168,11 +168,11 @@ body {
   border-width: 1px;
 }
 
-.pagination span.current {
+.paging span.current {
   font-weight: bold;  
 }
 
-.pagination a {
+.paging a {
   text-decoration: none;  
 }
 

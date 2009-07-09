@@ -42,25 +42,7 @@
     </div>
     <div id="wrapper">
       <?php $session->flash(); ?>
-      <div id="main">
-        <?php echo $content_for_layout; ?>
-      </div>
-      <div id="sidebar">
-        <div class="block">
-          <h3>Sidebar</h3>
-          <ul class="navigation">
-            <li><a href="#">Link 1</a></li>
-            <li><a href="#">Link 2</a></li>
-            <li><a href="#">Link 3</a></li>
-          </ul>
-        </div>
-        <div class="block">
-          <h3>Simple Block</h3>
-          <div class="content">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          </div>
-        </div>
-      </div>
+      <?php echo $content_for_layout; ?>
       <div class="clear"></div>
       <div id="footer">
         <div class="block">

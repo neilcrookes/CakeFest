@@ -209,25 +209,25 @@ hr {
   padding: 10px;
 }
 
-/* pagination */
+/* paging */
 
-.pagination a, .pagination span {
+.paging a, .paging span.current, .paging span.disabled {
   background: #cfcfcf;
   -moz-border-radius: 3px;
   border: 1px solid #c1c1c1;
 }
 
-.pagination span.current {
+.paging span.current {
   background: #36393d;
   color: #FFF;
   border: 1px solid #36393d;
 }
 
-.pagination a {
+.paging a {
   color: #1a1a1a;
 }
 
-.pagination a:hover {
+.paging a:hover {
   border: 1px solid #666;
 }
 
@@ -236,6 +236,10 @@ hr {
 .table th {
   background: #36393d;
   border-bottom: 3px solid #700000;
+  color: #FFF;
+}
+
+.table th a {
   color: #FFF;
 }
 
@@ -371,3 +375,17 @@ ul.list li .item .avatar {
   border-bottom-width: 5px;
 }
 
+h2.title {
+  padding: 10px 15px;
+  margin: 0;
+  font-size: 13px;
+  color: #FFF;
+  background-color: #36393d;
+  border-bottom-width: 5px;
+  border-bottom-style: solid;
+  border-bottom-color: #1a1a1a;
+  -moz-border-radius-topleft: 4px;
+  -webkit-border-top-left-radius: 4px;
+  -moz-border-radius-topright: 4px;
+  -webkit-border-top-right-radius: 4px;
+}
