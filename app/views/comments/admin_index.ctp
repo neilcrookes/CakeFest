@@ -1,14 +1,16 @@
-<div class="comments index">
-<h2><?php __('Comments');?></h2>
+<div id="main"><div class="block" id="block-tables">
+<h2 class="title"><?php __('Comments');?></h2>
+<div class="content">
+<div class="inner">
 <p>
 <?php
 echo $paginator->counter(array(
 'format' => __('Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%', true)
 ));
 ?></p>
-<table cellpadding="0" cellspacing="0">
+<table cellpadding="0" cellspacing="0" class="table">
 <tr>
-	<th><?php echo $paginator->sort('id');?></th>
+	<th class="first"><?php echo $paginator->sort('id');?></th>
 	<th><?php echo $paginator->sort('post_id');?></th>
 	<th><?php echo $paginator->sort('name');?></th>
 	<th><?php echo $paginator->sort('email');?></th>
@@ -17,14 +19,14 @@ echo $paginator->counter(array(
 	<th><?php echo $paginator->sort('active');?></th>
 	<th><?php echo $paginator->sort('created');?></th>
 	<th><?php echo $paginator->sort('modified');?></th>
-	<th class="actions"><?php __('Actions');?></th>
+	<th class="last"><?php __('Actions');?></th>
 </tr>
 <?php
 $i = 0;
 foreach ($comments as $comment):
-	$class = null;
+	$class = ' class="odd"';
 	if ($i++ % 2 == 0) {
-		$class = ' class="altrow"';
+		$class = ' class="even"';
 	}
 ?>
 	<tr<?php echo $class;?>>
@@ -62,17 +64,17 @@ foreach ($comments as $comment):
 		</td>
 	</tr>
 <?php endforeach; ?>
-</table>
-</div>
+</table><div class="actions-bar">
 <div class="paging">
-	<?php echo $paginator->prev('<< '.__('previous', true), array(), null, array('class'=>'disabled'));?>
- | 	<?php echo $paginator->numbers();?>
-	<?php echo $paginator->next(__('next', true).' >>', array(), null, array('class'=>'disabled'));?>
-</div>
-<div class="actions">
-	<ul>
+	<?php echo $paginator->prev('<< '.__('previous', true), array('tag' => 'span'), null, array('tag' => 'span', 'class'=>'disabled'));?>
+	<?php echo $paginator->numbers(array('separator' => null));?>
+	<?php echo $paginator->next(__('next', true).' >>', array('tag' => 'span'), null, array('tag' => 'span', 'class'=>'disabled'));?>
+</div><div class="clear"></div></div></div></div></div></div>
+<div id="sidebar"><div class="block"><h3>Actions</h3>
+	<ul class="navigation">
 		<li><?php echo $html->link(__('New Comment', true), array('action'=>'add')); ?></li>
 		<li><?php echo $html->link(__('List Posts', true), array('controller'=> 'posts', 'action'=>'index')); ?> </li>
 		<li><?php echo $html->link(__('New Post', true), array('controller'=> 'posts', 'action'=>'add')); ?> </li>
 	</ul>
+</div>
 </div>
