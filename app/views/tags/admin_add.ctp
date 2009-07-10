@@ -7,7 +7,12 @@
 		echo $admin->input('tag');
 		echo $admin->input('Post');
 	?>
-<?php echo $form->end('Submit');?>
+<?php
+echo $form->submit(__('Save', true), array('name' => 'submit', 'class' => 'button', 'div' => false)) . ' or ';
+echo $form->submit(__('Save and Add Another', true), array('name' => 'submit', 'class' => 'button', 'div' => false)) . ' or ';
+echo $form->end(array('name' => 'submit', 'label' => __('Save and Go Back', true), 'class' => 'button', 'div' => false));
+if (isset($previousPage)) echo ' or ' . $html->link(__('Back to '.$previousPage['title'], true), $previousPage['uri']);
+?>
 </div></div></div></div>
 <div id="sidebar"><div class="block"><h3>Actions</h3>
 <div class="actions">
