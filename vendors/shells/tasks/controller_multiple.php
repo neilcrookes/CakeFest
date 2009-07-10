@@ -140,7 +140,7 @@ class ControllerMultipleTask extends ControllerTask {
 		$actions .= "\tfunction {$admin}view(\$id = null) {\n";
 		$actions .= "\t\tif (!\$id) {\n";
 		if ($wannaUseSession) {
-			$actions .= "\t\t\t\$this->Session->setFlash(__('Invalid {$singularHumanName}.', true));\n";
+			$actions .= "\t\t\t\$this->Session->setFlash(__('Invalid {$singularHumanName}.', true), 'admin_flash_bad');\n";
 			$actions .= "\t\t\t\$this->redirect(array('action'=>'index'));\n";
 		} else {
 			$actions .= "\t\t\t\$this->flash(__('Invalid {$singularHumanName}', true), array('action'=>'index'));\n";
@@ -164,7 +164,7 @@ class ControllerMultipleTask extends ControllerTask {
 		$actions .= "\t\t\t\$this->{$currentModelName}->create();\n";
 		$actions .= "\t\t\tif (\$this->{$currentModelName}->save(\$this->data)) {\n";
 		if ($wannaUseSession) {
-			$actions .= "\t\t\t\t\$this->Session->setFlash(__('The ".$singularHumanName." has been saved', true));\n";
+			$actions .= "\t\t\t\t\$this->Session->setFlash(__('The ".$singularHumanName." has been saved', true), 'admin_flash_good');\n";
       $actions .= "\t\t\t\tif (isset(\$this->params['form']['submit']) && \$this->params['form']['submit'] == __('Save and Add Another', true)) {\n";
       $actions .= "\t\t\t\t\t\$this->History->back(0);\n";
       $actions .= "\t\t\t\t} elseif (isset(\$this->params['form']['submit']) && \$this->params['form']['submit'] == __('Save and Go Back', true)) {\n";
@@ -177,7 +177,7 @@ class ControllerMultipleTask extends ControllerTask {
 		}
 		$actions .= "\t\t\t} else {\n";
 		if ($wannaUseSession) {
-			$actions .= "\t\t\t\t\$this->Session->setFlash(__('The {$singularHumanName} could not be saved. Please, try again.', true));\n";
+			$actions .= "\t\t\t\t\$this->Session->setFlash(__('The {$singularHumanName} could not be saved. Please, try again.', true), 'admin_flash_bad');\n";
 		}
 		$actions .= "\t\t\t}\n";
 		$actions .= "\t\t}\n";
@@ -216,7 +216,7 @@ class ControllerMultipleTask extends ControllerTask {
 		$actions .= "\tfunction {$admin}edit(\$id = null) {\n";
 		$actions .= "\t\tif (!\$id && empty(\$this->data)) {\n";
 		if ($wannaUseSession) {
-			$actions .= "\t\t\t\$this->Session->setFlash(__('Invalid {$singularHumanName}', true));\n";
+			$actions .= "\t\t\t\$this->Session->setFlash(__('Invalid {$singularHumanName}', true), 'admin_flash_bad');\n";
 			$actions .= "\t\t\t\$this->redirect(array('action'=>'index'));\n";
 		} else {
 			$actions .= "\t\t\t\$this->flash(__('Invalid {$singularHumanName}', true), array('action'=>'index'));\n";
@@ -225,7 +225,7 @@ class ControllerMultipleTask extends ControllerTask {
 		$actions .= "\t\tif (!empty(\$this->data)) {\n";
 		$actions .= "\t\t\tif (\$this->{$currentModelName}->save(\$this->data)) {\n";
 		if ($wannaUseSession) {
-			$actions .= "\t\t\t\t\$this->Session->setFlash(__('The ".$singularHumanName." has been saved', true));\n";
+			$actions .= "\t\t\t\t\$this->Session->setFlash(__('The ".$singularHumanName." has been saved', true), 'admin_flash_good');\n";
       $actions .= "\t\t\t\tif (isset(\$this->params['form']['submit']) && \$this->params['form']['submit'] == __('Save', true)) {\n";
       $actions .= "\t\t\t\t\t\$this->History->back(0);\n";
       $actions .= "\t\t\t\t} else {\n";
@@ -236,7 +236,7 @@ class ControllerMultipleTask extends ControllerTask {
 		}
 		$actions .= "\t\t\t} else {\n";
 		if ($wannaUseSession) {
-			$actions .= "\t\t\t\t\$this->Session->setFlash(__('The {$singularHumanName} could not be saved. Please, try again.', true));\n";
+			$actions .= "\t\t\t\t\$this->Session->setFlash(__('The {$singularHumanName} could not be saved. Please, try again.', true), 'admin_flash_bad');\n";
 		}
 		$actions .= "\t\t\t}\n";
 		$actions .= "\t\t}\n";
@@ -278,7 +278,7 @@ class ControllerMultipleTask extends ControllerTask {
 		$actions .= "\tfunction {$admin}delete(\$id = null) {\n";
 		$actions .= "\t\tif (!\$id) {\n";
 		if ($wannaUseSession) {
-			$actions .= "\t\t\t\$this->Session->setFlash(__('Invalid id for {$singularHumanName}', true));\n";
+			$actions .= "\t\t\t\$this->Session->setFlash(__('Invalid id for {$singularHumanName}', true), 'admin_flash_bad');\n";
 			$actions .= "\t\t\t\$this->redirect(array('action'=>'index'));\n";
 		} else {
 			$actions .= "\t\t\t\$this->flash(__('Invalid {$singularHumanName}', true), array('action'=>'index'));\n";
@@ -286,7 +286,7 @@ class ControllerMultipleTask extends ControllerTask {
 		$actions .= "\t\t}\n";
 		$actions .= "\t\tif (\$this->{$currentModelName}->del(\$id)) {\n";
 		if ($wannaUseSession) {
-			$actions .= "\t\t\t\$this->Session->setFlash(__('{$singularHumanName} deleted', true));\n";
+			$actions .= "\t\t\t\$this->Session->setFlash(__('{$singularHumanName} deleted', true), 'admin_flash_good');\n";
 			$actions .= "\t\t\t\$this->redirect(array('action'=>'index'));\n";
 		} else {
 			$actions .= "\t\t\t\$this->flash(__('{$singularHumanName} deleted', true), array('action'=>'index'));\n";
