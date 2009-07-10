@@ -264,7 +264,7 @@ class ControllerMultipleTask extends ControllerTask {
    */
   function bakeDeleteAction() {
     extract($this->_actionVars);
-		$actions .= "\n";
+		$actions = "\n";
 		$actions .= "\tfunction {$admin}delete(\$id = null) {\n";
 		$actions .= "\t\tif (!\$id) {\n";
 		if ($wannaUseSession) {
