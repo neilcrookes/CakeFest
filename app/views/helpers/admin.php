@@ -80,6 +80,11 @@ class AdminHelper extends AppHelper {
         break;
     }
 
+    // Add empty option
+    if ($isKey) {
+      $defaults['empty'] = __('Please select', true);
+    }
+
     // Merge defaults with options
     $options = Set::merge($defaults, $options);
 
