@@ -81,6 +81,162 @@ class ControllerMultipleTask extends ControllerTask {
 
   }
 
+
+  /**
+   * Bake scaffold actions
+   *
+   * @param string $controllerName Controller name
+   * @param string $admin Admin route to use
+   * @param boolean $wannaUseSession Set to true to use sessions, false otherwise
+   * @return string Baked actions
+   * @access private
+   */
+	function bakeActions($controllerName, $admin = null, $wannaUseSession = true) {
+		$currentModelName = $this->_modelName($controllerName);
+		if (!App::import('Model', $currentModelName)) {
+			$this->err(__('You must have a model for this class to build scaffold methods. Please try again.', true));
+			exit;
+		}
+		$actions = null;
+		$modelObj =& new $currentModelName();
+		$controllerPath = $this->_controllerPath($controllerName);
+		$pluralName = $this->_pluralName($currentModelName);
+		$singularName = Inflector::variable($currentModelName);
+		$singularHumanName = Inflector::humanize($currentModelName);
+		$pluralHumanName = Inflector::humanize($controllerName);
+		$actions .= "\n";
+		$actions .= "\tfunction {$admin}index() {\n";
+		$actions .= "\t\t\$this->{$currentModelName}->recursive = 0;\n";
+		$actions .= "\t\t\$this->set('{$pluralName}', \$this->paginate());\n";
+		$actions .= "\t}\n";
+		$actions .= "\n";
+		$actions .= "\tfunction {$admin}view(\$id = null) {\n";
+		$actions .= "\t\tif (!\$id) {\n";
+		if ($wannaUseSession) {
+			$actions .= "\t\t\t\$this->Session->setFlash(__('Invalid {$singularHumanName}.', true));\n";
+			$actions .= "\t\t\t\$this->redirect(array('action'=>'index'));\n";
+		} else {
+			$actions .= "\t\t\t\$this->flash(__('Invalid {$singularHumanName}', true), array('action'=>'index'));\n";
+		}
+		$actions .= "\t\t}\n";
+		$actions .= "\t\t\$this->set('".$singularName."', \$this->{$currentModelName}->read(null, \$id));\n";
+		$actions .= "\t}\n";
+		$actions .= "\n";
+
+		/* ADD ACTION */
+		$compact = array();
+		$actions .= "\tfunction {$admin}add() {\n";
+		$actions .= "\t\tif (!empty(\$this->data)) {\n";
+		$actions .= "\t\t\t\$this->{$currentModelName}->create();\n";
+		$actions .= "\t\t\tif (\$this->{$currentModelName}->save(\$this->data)) {\n";
+		if ($wannaUseSession) {
+			$actions .= "\t\t\t\t\$this->Session->setFlash(__('The ".$singularHumanName." has been saved', true));\n";
+			$actions .= "\t\t\t\t\$this->redirect(array('action'=>'index'));\n";
+		} else {
+			$actions .= "\t\t\t\t\$this->flash(__('{$currentModelName} saved.', true), array('action'=>'index'));\n";
+		}
+		$actions .= "\t\t\t} else {\n";
+		if ($wannaUseSession) {
+			$actions .= "\t\t\t\t\$this->Session->setFlash(__('The {$singularHumanName} could not be saved. Please, try again.', true));\n";
+		}
+		$actions .= "\t\t\t}\n";
+		$actions .= "\t\t}\n";
+		foreach ($modelObj->hasAndBelongsToMany as $associationName => $relation) {
+			if (!empty($associationName)) {
+				$habtmModelName = $this->_modelName($associationName);
+				$habtmSingularName = $this->_singularName($associationName);
+				$habtmPluralName = $this->_pluralName($associationName);
+				$actions .= "\t\t\${$habtmPluralName} = \$this->{$currentModelName}->{$habtmModelName}->find('list');\n";
+				$compact[] = "'{$habtmPluralName}'";
+			}
+		}
+		foreach ($modelObj->belongsTo as $associationName => $relation) {
+			if (!empty($associationName)) {
+				$belongsToModelName = $this->_modelName($associationName);
+				$belongsToPluralName = $this->_pluralName($associationName);
+				$actions .= "\t\t\${$belongsToPluralName} = \$this->{$currentModelName}->{$belongsToModelName}->find('list');\n";
+				$compact[] = "'{$belongsToPluralName}'";
+			}
+		}
+		if (!empty($compact)) {
+			$actions .= "\t\t\$this->set(compact(".join(', ', $compact)."));\n";
+		}
+		$actions .= "\t}\n";
+		$actions .= "\n";
+
+		/* EDIT ACTION */
+		$compact = array();
+		$actions .= "\tfunction {$admin}edit(\$id = null) {\n";
+		$actions .= "\t\tif (!\$id && empty(\$this->data)) {\n";
+		if ($wannaUseSession) {
+			$actions .= "\t\t\t\$this->Session->setFlash(__('Invalid {$singularHumanName}', true));\n";
+			$actions .= "\t\t\t\$this->redirect(array('action'=>'index'));\n";
+		} else {
+			$actions .= "\t\t\t\$this->flash(__('Invalid {$singularHumanName}', true), array('action'=>'index'));\n";
+		}
+		$actions .= "\t\t}\n";
+		$actions .= "\t\tif (!empty(\$this->data)) {\n";
+		$actions .= "\t\t\tif (\$this->{$currentModelName}->save(\$this->data)) {\n";
+		if ($wannaUseSession) {
+			$actions .= "\t\t\t\t\$this->Session->setFlash(__('The ".$singularHumanName." has been saved', true));\n";
+			$actions .= "\t\t\t\t\$this->redirect(array('action'=>'index'));\n";
+		} else {
+			$actions .= "\t\t\t\t\$this->flash(__('The ".$singularHumanName." has been saved.', true), array('action'=>'index'));\n";
+		}
+		$actions .= "\t\t\t} else {\n";
+		if ($wannaUseSession) {
+			$actions .= "\t\t\t\t\$this->Session->setFlash(__('The {$singularHumanName} could not be saved. Please, try again.', true));\n";
+		}
+		$actions .= "\t\t\t}\n";
+		$actions .= "\t\t}\n";
+		$actions .= "\t\tif (empty(\$this->data)) {\n";
+		$actions .= "\t\t\t\$this->data = \$this->{$currentModelName}->read(null, \$id);\n";
+		$actions .= "\t\t}\n";
+
+		foreach ($modelObj->hasAndBelongsToMany as $associationName => $relation) {
+			if (!empty($associationName)) {
+				$habtmModelName = $this->_modelName($associationName);
+				$habtmSingularName = $this->_singularName($associationName);
+				$habtmPluralName = $this->_pluralName($associationName);
+				$actions .= "\t\t\${$habtmPluralName} = \$this->{$currentModelName}->{$habtmModelName}->find('list');\n";
+				$compact[] = "'{$habtmPluralName}'";
+			}
+		}
+		foreach ($modelObj->belongsTo as $associationName => $relation) {
+			if (!empty($associationName)) {
+				$belongsToModelName = $this->_modelName($associationName);
+				$belongsToPluralName = $this->_pluralName($associationName);
+				$actions .= "\t\t\${$belongsToPluralName} = \$this->{$currentModelName}->{$belongsToModelName}->find('list');\n";
+				$compact[] = "'{$belongsToPluralName}'";
+			}
+		}
+		if (!empty($compact)) {
+			$actions .= "\t\t\$this->set(compact(".join(',', $compact)."));\n";
+		}
+		$actions .= "\t}\n";
+		$actions .= "\n";
+		$actions .= "\tfunction {$admin}delete(\$id = null) {\n";
+		$actions .= "\t\tif (!\$id) {\n";
+		if ($wannaUseSession) {
+			$actions .= "\t\t\t\$this->Session->setFlash(__('Invalid id for {$singularHumanName}', true));\n";
+			$actions .= "\t\t\t\$this->redirect(array('action'=>'index'));\n";
+		} else {
+			$actions .= "\t\t\t\$this->flash(__('Invalid {$singularHumanName}', true), array('action'=>'index'));\n";
+		}
+		$actions .= "\t\t}\n";
+		$actions .= "\t\tif (\$this->{$currentModelName}->del(\$id)) {\n";
+		if ($wannaUseSession) {
+			$actions .= "\t\t\t\$this->Session->setFlash(__('{$singularHumanName} deleted', true));\n";
+			$actions .= "\t\t\t\$this->redirect(array('action'=>'index'));\n";
+		} else {
+			$actions .= "\t\t\t\$this->flash(__('{$singularHumanName} deleted', true), array('action'=>'index'));\n";
+		}
+		$actions .= "\t\t}\n";
+		$actions .= "\t}\n";
+		$actions .= "\n";
+		return $actions;
+	}
+
   /**
    * Replaces getName() (singular) in ControllerTask to return an array of one,
    * multiple or all controller names. Displays available controllers and
