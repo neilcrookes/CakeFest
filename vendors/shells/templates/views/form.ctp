@@ -23,7 +23,7 @@
 echo "<?php".PHP_EOL;
 if ($action == 'edit') {
   echo "echo \$form->submit(__('Save', true), array('name' => 'submit', 'class' => 'button', 'div' => false)) . ' or ';".PHP_EOL;
-  echo "echo \$form->end(array('name' => 'submit', 'label' => __('Save and Go Back', true), 'class' => 'button', 'div' => false)); . ' or '".PHP_EOL;
+  echo "echo \$form->end(array('name' => 'submit', 'label' => __('Save and Go Back', true), 'class' => 'button', 'div' => false)) . ' or ';".PHP_EOL;
 } else {
   echo "echo \$form->submit(__('Save', true), array('name' => 'submit', 'class' => 'button', 'div' => false)) . ' or ';".PHP_EOL;
   echo "echo \$form->submit(__('Save and Add Another', true), array('name' => 'submit', 'class' => 'button', 'div' => false)) . ' or ';".PHP_EOL;
