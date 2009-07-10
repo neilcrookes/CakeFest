@@ -22,7 +22,13 @@ class PostsController extends AppController {
 			$this->Post->create();
 			if ($this->Post->save($this->data)) {
 				$this->Session->setFlash(__('The Post has been saved', true));
-				$this->redirect(array('action'=>'index'));
+				if (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save and Add Another', true)) {
+					$this->History->back(0);
+				} elseif (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save and Go Back', true)) {
+					$this->History->back();
+				} else {
+					$this->redirect(array('action' => 'edit', $this->Post->getInsertID()));
+				}
 			} else {
 				$this->Session->setFlash(__('The Post could not be saved. Please, try again.', true));
 			}
@@ -40,7 +46,11 @@ class PostsController extends AppController {
 		if (!empty($this->data)) {
 			if ($this->Post->save($this->data)) {
 				$this->Session->setFlash(__('The Post has been saved', true));
-				$this->redirect(array('action'=>'index'));
+				if (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save', true)) {
+					$this->History->back(0);
+				} else {
+					$this->History->back();
+				}
 			} else {
 				$this->Session->setFlash(__('The Post could not be saved. Please, try again.', true));
 			}
@@ -83,7 +93,13 @@ class PostsController extends AppController {
 			$this->Post->create();
 			if ($this->Post->save($this->data)) {
 				$this->Session->setFlash(__('The Post has been saved', true));
-				$this->redirect(array('action'=>'index'));
+				if (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save and Add Another', true)) {
+					$this->History->back(0);
+				} elseif (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save and Go Back', true)) {
+					$this->History->back();
+				} else {
+					$this->redirect(array('action' => 'edit', $this->Post->getInsertID()));
+				}
 			} else {
 				$this->Session->setFlash(__('The Post could not be saved. Please, try again.', true));
 			}
@@ -101,7 +117,11 @@ class PostsController extends AppController {
 		if (!empty($this->data)) {
 			if ($this->Post->save($this->data)) {
 				$this->Session->setFlash(__('The Post has been saved', true));
-				$this->redirect(array('action'=>'index'));
+				if (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save', true)) {
+					$this->History->back(0);
+				} else {
+					$this->History->back();
+				}
 			} else {
 				$this->Session->setFlash(__('The Post could not be saved. Please, try again.', true));
 			}

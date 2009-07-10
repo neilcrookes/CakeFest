@@ -22,7 +22,13 @@ class CategoriesController extends AppController {
 			$this->Category->create();
 			if ($this->Category->save($this->data)) {
 				$this->Session->setFlash(__('The Category has been saved', true));
-				$this->redirect(array('action'=>'index'));
+				if (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save and Add Another', true)) {
+					$this->History->back(0);
+				} elseif (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save and Go Back', true)) {
+					$this->History->back();
+				} else {
+					$this->redirect(array('action' => 'edit', $this->Category->getInsertID()));
+				}
 			} else {
 				$this->Session->setFlash(__('The Category could not be saved. Please, try again.', true));
 			}
@@ -37,7 +43,11 @@ class CategoriesController extends AppController {
 		if (!empty($this->data)) {
 			if ($this->Category->save($this->data)) {
 				$this->Session->setFlash(__('The Category has been saved', true));
-				$this->redirect(array('action'=>'index'));
+				if (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save', true)) {
+					$this->History->back(0);
+				} else {
+					$this->History->back();
+				}
 			} else {
 				$this->Session->setFlash(__('The Category could not be saved. Please, try again.', true));
 			}
@@ -77,7 +87,13 @@ class CategoriesController extends AppController {
 			$this->Category->create();
 			if ($this->Category->save($this->data)) {
 				$this->Session->setFlash(__('The Category has been saved', true));
-				$this->redirect(array('action'=>'index'));
+				if (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save and Add Another', true)) {
+					$this->History->back(0);
+				} elseif (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save and Go Back', true)) {
+					$this->History->back();
+				} else {
+					$this->redirect(array('action' => 'edit', $this->Category->getInsertID()));
+				}
 			} else {
 				$this->Session->setFlash(__('The Category could not be saved. Please, try again.', true));
 			}
@@ -92,7 +108,11 @@ class CategoriesController extends AppController {
 		if (!empty($this->data)) {
 			if ($this->Category->save($this->data)) {
 				$this->Session->setFlash(__('The Category has been saved', true));
-				$this->redirect(array('action'=>'index'));
+				if (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save', true)) {
+					$this->History->back(0);
+				} else {
+					$this->History->back();
+				}
 			} else {
 				$this->Session->setFlash(__('The Category could not be saved. Please, try again.', true));
 			}

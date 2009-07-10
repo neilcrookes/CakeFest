@@ -22,7 +22,13 @@ class CommentsController extends AppController {
 			$this->Comment->create();
 			if ($this->Comment->save($this->data)) {
 				$this->Session->setFlash(__('The Comment has been saved', true));
-				$this->redirect(array('action'=>'index'));
+				if (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save and Add Another', true)) {
+					$this->History->back(0);
+				} elseif (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save and Go Back', true)) {
+					$this->History->back();
+				} else {
+					$this->redirect(array('action' => 'edit', $this->Comment->getInsertID()));
+				}
 			} else {
 				$this->Session->setFlash(__('The Comment could not be saved. Please, try again.', true));
 			}
@@ -39,7 +45,11 @@ class CommentsController extends AppController {
 		if (!empty($this->data)) {
 			if ($this->Comment->save($this->data)) {
 				$this->Session->setFlash(__('The Comment has been saved', true));
-				$this->redirect(array('action'=>'index'));
+				if (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save', true)) {
+					$this->History->back(0);
+				} else {
+					$this->History->back();
+				}
 			} else {
 				$this->Session->setFlash(__('The Comment could not be saved. Please, try again.', true));
 			}
@@ -81,7 +91,13 @@ class CommentsController extends AppController {
 			$this->Comment->create();
 			if ($this->Comment->save($this->data)) {
 				$this->Session->setFlash(__('The Comment has been saved', true));
-				$this->redirect(array('action'=>'index'));
+				if (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save and Add Another', true)) {
+					$this->History->back(0);
+				} elseif (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save and Go Back', true)) {
+					$this->History->back();
+				} else {
+					$this->redirect(array('action' => 'edit', $this->Comment->getInsertID()));
+				}
 			} else {
 				$this->Session->setFlash(__('The Comment could not be saved. Please, try again.', true));
 			}
@@ -98,7 +114,11 @@ class CommentsController extends AppController {
 		if (!empty($this->data)) {
 			if ($this->Comment->save($this->data)) {
 				$this->Session->setFlash(__('The Comment has been saved', true));
-				$this->redirect(array('action'=>'index'));
+				if (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save', true)) {
+					$this->History->back(0);
+				} else {
+					$this->History->back();
+				}
 			} else {
 				$this->Session->setFlash(__('The Comment could not be saved. Please, try again.', true));
 			}
