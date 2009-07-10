@@ -104,12 +104,39 @@ class ControllerMultipleTask extends ControllerTask {
 		$singularName = Inflector::variable($currentModelName);
 		$singularHumanName = Inflector::humanize($currentModelName);
 		$pluralHumanName = Inflector::humanize($controllerName);
+    $this->_actionVars = compact('controllerName', 'admin', 'wannaUseSession',
+      'currentModelName', 'modelObj', 'controllerPath', 'pluralName',
+      'singularName', 'singularHumanName', 'pluralHumanName');
+    $actions .= $this->bakeIndexAction();
+    $actions .= $this->bakeViewAction();
+    $actions .= $this->bakeAddAction();
+    $actions .= $this->bakeEditAction();
+    $actions .= $this->bakeDeleteAction();
 		$actions .= "\n";
+		return $actions;
+	}
+
+  /**
+   * Bakes index action
+   * @return string
+   */
+  function bakeIndexAction() {
+    extract($this->_actionVars);
+    $actions = "\n";
 		$actions .= "\tfunction {$admin}index() {\n";
 		$actions .= "\t\t\$this->{$currentModelName}->recursive = 0;\n";
 		$actions .= "\t\t\$this->set('{$pluralName}', \$this->paginate());\n";
 		$actions .= "\t}\n";
-		$actions .= "\n";
+    return $actions;
+  }
+
+  /**
+   * Bakes view action
+   * @return string
+   */
+  function bakeViewAction() {
+    extract($this->_actionVars);
+		$actions = "\n";
 		$actions .= "\tfunction {$admin}view(\$id = null) {\n";
 		$actions .= "\t\tif (!\$id) {\n";
 		if ($wannaUseSession) {
@@ -121,10 +148,17 @@ class ControllerMultipleTask extends ControllerTask {
 		$actions .= "\t\t}\n";
 		$actions .= "\t\t\$this->set('".$singularName."', \$this->{$currentModelName}->read(null, \$id));\n";
 		$actions .= "\t}\n";
-		$actions .= "\n";
+    return $actions;
+  }
 
-		/* ADD ACTION */
+  /**
+   * Bakes add action
+   * @return string
+   */
+  function bakeAddAction() {
+    extract($this->_actionVars);
 		$compact = array();
+    $actions = "\n";
 		$actions .= "\tfunction {$admin}add() {\n";
 		$actions .= "\t\tif (!empty(\$this->data)) {\n";
 		$actions .= "\t\t\t\$this->{$currentModelName}->create();\n";
@@ -162,10 +196,17 @@ class ControllerMultipleTask extends ControllerTask {
 			$actions .= "\t\t\$this->set(compact(".join(', ', $compact)."));\n";
 		}
 		$actions .= "\t}\n";
-		$actions .= "\n";
+    return $actions;
+  }
 
-		/* EDIT ACTION */
+  /**
+   * Bakes edit action
+   * @return string
+   */
+  function bakeEditAction() {
+    extract($this->_actionVars);
 		$compact = array();
+    $actions = "\n";
 		$actions .= "\tfunction {$admin}edit(\$id = null) {\n";
 		$actions .= "\t\tif (!\$id && empty(\$this->data)) {\n";
 		if ($wannaUseSession) {
@@ -214,6 +255,15 @@ class ControllerMultipleTask extends ControllerTask {
 			$actions .= "\t\t\$this->set(compact(".join(',', $compact)."));\n";
 		}
 		$actions .= "\t}\n";
+    return $actions;
+  }
+
+  /**
+   * Bakes delete action
+   * @return string
+   */
+  function bakeDeleteAction() {
+    extract($this->_actionVars);
 		$actions .= "\n";
 		$actions .= "\tfunction {$admin}delete(\$id = null) {\n";
 		$actions .= "\t\tif (!\$id) {\n";
@@ -233,9 +283,8 @@ class ControllerMultipleTask extends ControllerTask {
 		}
 		$actions .= "\t\t}\n";
 		$actions .= "\t}\n";
-		$actions .= "\n";
-		return $actions;
-	}
+    return $actions;
+  }
 
   /**
    * Replaces getName() (singular) in ControllerTask to return an array of one,
