@@ -20,7 +20,17 @@
 		echo "\t?>\n";
 ?>
 <?php
-	echo "<?php echo \$form->end('Submit');?>\n";
+echo "<?php".PHP_EOL;
+if ($action == 'edit') {
+  echo "echo \$form->submit(__('Save', true), array('name' => 'submit', 'class' => 'button', 'div' => false)) . ' or ';".PHP_EOL;
+  echo "echo \$form->end(array('name' => 'submit', 'label' => __('Save and Go Back', true), 'class' => 'button', 'div' => false)); . ' or '".PHP_EOL;
+} else {
+  echo "echo \$form->submit(__('Save', true), array('name' => 'submit', 'class' => 'button', 'div' => false)) . ' or ';".PHP_EOL;
+  echo "echo \$form->submit(__('Save and Add Another', true), array('name' => 'submit', 'class' => 'button', 'div' => false)) . ' or ';".PHP_EOL;
+  echo "echo \$form->end(array('name' => 'submit', 'label' => __('Save and Go Back', true), 'class' => 'button', 'div' => false));".PHP_EOL;
+}
+echo "if (isset(\$previousPage)) echo ' or ' . \$html->link(__('Back to '.\$previousPage['title'], true), \$previousPage['uri']);".PHP_EOL;
+echo "?>".PHP_EOL;
 ?>
 </div></div></div></div>
 <div id="sidebar"><div class="block"><h3>Actions</h3>
