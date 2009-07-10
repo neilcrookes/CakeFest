@@ -2,7 +2,7 @@
 <h2 class="title"><?php __('Posts');?></h2>
 <div class="content">
 <div class="inner">
-<?php echo $this->element('admin_pagination_count'); ?><table cellpadding="0" cellspacing="0" class="table">
+<?php if (!empty($posts)) : ?><?php echo $this->element('admin_pagination_count'); ?><table cellpadding="0" cellspacing="0" class="table">
 <tr>
 	<th class="first"><?php echo $paginator->sort('id');?></th>
 	<th><?php echo $paginator->sort('category_id');?></th>
@@ -54,7 +54,8 @@ foreach ($posts as $post):
 	</tr>
 <?php endforeach; ?>
 </table><div class="actions-bar">
-<?php echo $this->element('admin_pagination_links'); ?><div class="clear"></div></div></div></div></div></div>
+<?php echo $this->element('admin_pagination_links'); ?><?php else : ?><p><?php __('No results'); ?></p>
+<?php endif; ?><div class="clear"></div></div></div></div></div></div>
 <div id="sidebar"><div class="block"><h3>Actions</h3>
 	<ul class="navigation">
 		<li><?php echo $html->link(__('New Post', true), array('action'=>'add')); ?></li>
