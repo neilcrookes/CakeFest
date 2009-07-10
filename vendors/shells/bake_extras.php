@@ -2,6 +2,7 @@
 /**
  * BakeExtrasShell extends BakeShell and is used for executing custom tasks e.g.
  * - ViewMultiple
+ * - ControllerMultiple
  *
  * @author Neil Crookes <neil@neilcrookes.com>
  * @link http://www.neilcrookes.com
@@ -15,7 +16,7 @@ class BakeExtrasShell extends BakeShell {
    * The tasks that this shell uses
    * @var array
    */
-  var $tasks = array('ViewMultiple');
+  var $tasks = array('ViewMultiple', 'ControllerMultiple');
 
   /**
    * Run when shell invoked
@@ -27,21 +28,25 @@ class BakeExtrasShell extends BakeShell {
 		$this->out('Bake Extras Shell');
 		$this->hr();
 		$this->out('[V]iew Multiple');
+		$this->out('[C]ontroller Multiple');
 		$this->out('[Q]uit');
 
     // Prompt the user for the class to bake
-		$classToBake = strtoupper($this->in(__('What would you like to Bake?', true), array('V', 'Q')));
+		$classToBake = strtoupper($this->in(__('What would you like to Bake?', true), array('V', 'C', 'Q')));
 
     // Call execute on the task corresponding to the selected class to bake
 		switch($classToBake) {
 			case 'V':
 				$this->ViewMultiple->execute();
 				break;
+			case 'C':
+				$this->ControllerMultiple->execute();
+				break;
 			case 'Q':
 				exit(0);
 				break;
 			default:
-				$this->out(__('You have made an invalid selection. Please choose a type of class to Bake by entering V or Q to quit.', true));
+				$this->out(__('You have made an invalid selection. Please choose a type of class to Bake by entering V, C or Q to quit.', true));
 		}
 
 		$this->hr();
@@ -57,7 +62,7 @@ class BakeExtrasShell extends BakeShell {
 	function help() {
 		$this->out('Bake Extras:');
 		$this->hr();
-		$this->out('The Bake Extras script generates views for your application.');
+		$this->out('The Bake Extras script generates views and controllers for your application.');
 		$this->out('It does not currently support any command line arguments');
 		$this->hr();
 		$this->out("Usage: cake bake_extras");

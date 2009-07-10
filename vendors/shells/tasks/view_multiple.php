@@ -59,7 +59,7 @@ class ViewMultipleTask extends ViewTask {
   }
 
   /**
-   * Retusn the actions for the option selected by the user from the list of
+   * Returns the actions for the option selected by the user from the list of
    * available actions and action combinations. E.g. a user may select all
    * actions, just admin actions, just form based actions or just a single one
    * 
@@ -67,7 +67,7 @@ class ViewMultipleTask extends ViewTask {
    */
   function getActions() {
 
-    $this->out(__("What actions should we create views for?", true));
+    $this->out(__("What actions should we bake?", true));
 
     // Get the available actions
     $availableActions = $this->getAvailableActions();

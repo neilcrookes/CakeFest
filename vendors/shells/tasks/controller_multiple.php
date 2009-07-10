@@ -4,6 +4,12 @@
  * selecting multiple controllers that you want to bake views for at the same
  * time.
  *
+ * ControllerMultipleTask can also bake your controllers with default settings
+ * so you don't have to do it interactively each time.
+ *
+ * It can also bake just non-admin actions or non-admin and admin actions or
+ * just admin actions.
+ *
  * You can select a single controller, multiple or all controllers.
  *
  * @author Neil Crookes <neil@neilcrookes.com>
@@ -14,6 +20,66 @@
 App::import('Core', 'console/libs/tasks/controller');
 App::import('Model', 'connection_manager');
 class ControllerMultipleTask extends ControllerTask {
+
+  /**
+   * Other tasks this task uses
+   * @var array
+   */
+  var $tasks = array('ViewMultiple');
+
+  /**
+   * Main function called by shell
+   */
+  function execute() {
+
+    parent::loadTasks();
+
+    // Get the array of actions to bake into the controller
+    $actions = $this->ViewMultiple->getActions();
+
+    // @todo Quick fix for switching on/off admin/non admin actions - to be
+    // replaced by more granular control
+    $admin = $this->getAdmin();
+    $nonAdminActions = $adminActions = false;
+    foreach ($actions as $action) {
+      if (strpos($action, $admin) !== false) {
+        $adminActions = true;
+      } else {
+        $nonAdminActions = true;
+      }
+    }
+
+    // Get the array of controllers to bake the selected actions for
+    $controllerNames = $this->getNames();
+
+    // For each controller
+    foreach ($controllerNames as $controllerName) {
+
+      // @todo Quick fix for switching on/off admin/non admin actions - to be
+      // replaced by more granular control
+      $actions = '';
+      if ($nonAdminActions) {
+        $actions .= $this->bakeActions($controllerName);
+      }
+      if ($adminActions) {
+        $actions .= $this->bakeActions($controllerName, $admin);
+      }
+
+      // Bake the controller
+			$baked = $this->bake($controllerName, $actions);
+
+      // If baked OK check if user wants controller unit test baked
+			if ($baked && $this->_checkUnitTest()) {
+				$this->bakeTest($controllerName);
+			}
+
+      $this->hr();
+
+    }
+
+    $this->out(__("Controller Baking Complete.\n", true));
+
+  }
 
   /**
    * Replaces getName() (singular) in ControllerTask to return an array of one,
