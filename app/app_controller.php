@@ -2,7 +2,7 @@
 class AppController extends Controller {
 
   var $components = array('RequestHandler');
-  var $helpers = array('Time', 'Admin');
+  var $helpers = array('Time', 'Admin', 'Javascript');
 
   var $paginate = array(
     'limit' => 10
