@@ -11,7 +11,7 @@ class PostsController extends AppController {
 
 	function view($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid Post.', true));
+			$this->Session->setFlash(__('Invalid Post.', true), 'flash_bad');
 			$this->redirect(array('action'=>'index'));
 		}
 		$this->set('post', $this->Post->read(null, $id));
@@ -21,7 +21,7 @@ class PostsController extends AppController {
 		if (!empty($this->data)) {
 			$this->Post->create();
 			if ($this->Post->save($this->data)) {
-				$this->Session->setFlash(__('The Post has been saved', true));
+				$this->Session->setFlash(__('The Post has been saved', true), 'flash_good');
 				if (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save and Add Another', true)) {
 					$this->History->back(0);
 				} elseif (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save and Go Back', true)) {
@@ -30,7 +30,7 @@ class PostsController extends AppController {
 					$this->redirect(array('action' => 'edit', $this->Post->getInsertID()));
 				}
 			} else {
-				$this->Session->setFlash(__('The Post could not be saved. Please, try again.', true));
+				$this->Session->setFlash(__('The Post could not be saved. Please, try again.', true), 'flash_bad');
 			}
 		}
 		$tags = $this->Post->Tag->find('list');
@@ -40,19 +40,19 @@ class PostsController extends AppController {
 
 	function edit($id = null) {
 		if (!$id && empty($this->data)) {
-			$this->Session->setFlash(__('Invalid Post', true));
+			$this->Session->setFlash(__('Invalid Post', true), 'flash_bad');
 			$this->redirect(array('action'=>'index'));
 		}
 		if (!empty($this->data)) {
 			if ($this->Post->save($this->data)) {
-				$this->Session->setFlash(__('The Post has been saved', true));
+				$this->Session->setFlash(__('The Post has been saved', true), 'flash_good');
 				if (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save', true)) {
 					$this->History->back(0);
 				} else {
 					$this->History->back();
 				}
 			} else {
-				$this->Session->setFlash(__('The Post could not be saved. Please, try again.', true));
+				$this->Session->setFlash(__('The Post could not be saved. Please, try again.', true), 'flash_bad');
 			}
 		}
 		if (empty($this->data)) {
@@ -65,11 +65,11 @@ class PostsController extends AppController {
 
 	function delete($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for Post', true));
+			$this->Session->setFlash(__('Invalid id for Post', true), 'flash_bad');
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->Post->del($id)) {
-			$this->Session->setFlash(__('Post deleted', true));
+			$this->Session->setFlash(__('Post deleted', true), 'flash_good');
 			$this->redirect(array('action'=>'index'));
 		}
 	}
@@ -82,7 +82,7 @@ class PostsController extends AppController {
 
 	function admin_view($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid Post.', true));
+			$this->Session->setFlash(__('Invalid Post.', true), 'admin_flash_bad');
 			$this->redirect(array('action'=>'index'));
 		}
 		$this->set('post', $this->Post->read(null, $id));
@@ -92,7 +92,7 @@ class PostsController extends AppController {
 		if (!empty($this->data)) {
 			$this->Post->create();
 			if ($this->Post->save($this->data)) {
-				$this->Session->setFlash(__('The Post has been saved', true));
+				$this->Session->setFlash(__('The Post has been saved', true), 'admin_flash_good');
 				if (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save and Add Another', true)) {
 					$this->History->back(0);
 				} elseif (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save and Go Back', true)) {
@@ -101,7 +101,7 @@ class PostsController extends AppController {
 					$this->redirect(array('action' => 'edit', $this->Post->getInsertID()));
 				}
 			} else {
-				$this->Session->setFlash(__('The Post could not be saved. Please, try again.', true));
+				$this->Session->setFlash(__('The Post could not be saved. Please, try again.', true), 'admin_flash_bad');
 			}
 		}
 		$tags = $this->Post->Tag->find('list');
@@ -111,19 +111,19 @@ class PostsController extends AppController {
 
 	function admin_edit($id = null) {
 		if (!$id && empty($this->data)) {
-			$this->Session->setFlash(__('Invalid Post', true));
+			$this->Session->setFlash(__('Invalid Post', true), 'admin_flash_bad');
 			$this->redirect(array('action'=>'index'));
 		}
 		if (!empty($this->data)) {
 			if ($this->Post->save($this->data)) {
-				$this->Session->setFlash(__('The Post has been saved', true));
+				$this->Session->setFlash(__('The Post has been saved', true), 'admin_flash_good');
 				if (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save', true)) {
 					$this->History->back(0);
 				} else {
 					$this->History->back();
 				}
 			} else {
-				$this->Session->setFlash(__('The Post could not be saved. Please, try again.', true));
+				$this->Session->setFlash(__('The Post could not be saved. Please, try again.', true), 'admin_flash_bad');
 			}
 		}
 		if (empty($this->data)) {
@@ -136,11 +136,11 @@ class PostsController extends AppController {
 
 	function admin_delete($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for Post', true));
+			$this->Session->setFlash(__('Invalid id for Post', true), 'admin_flash_bad');
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->Post->del($id)) {
-			$this->Session->setFlash(__('Post deleted', true));
+			$this->Session->setFlash(__('Post deleted', true), 'admin_flash_good');
 			$this->redirect(array('action'=>'index'));
 		}
 	}

@@ -11,7 +11,7 @@ class CommentsController extends AppController {
 
 	function view($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid Comment.', true));
+			$this->Session->setFlash(__('Invalid Comment.', true), 'flash_bad');
 			$this->redirect(array('action'=>'index'));
 		}
 		$this->set('comment', $this->Comment->read(null, $id));
@@ -21,7 +21,7 @@ class CommentsController extends AppController {
 		if (!empty($this->data)) {
 			$this->Comment->create();
 			if ($this->Comment->save($this->data)) {
-				$this->Session->setFlash(__('The Comment has been saved', true));
+				$this->Session->setFlash(__('The Comment has been saved', true), 'flash_good');
 				if (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save and Add Another', true)) {
 					$this->History->back(0);
 				} elseif (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save and Go Back', true)) {
@@ -30,7 +30,7 @@ class CommentsController extends AppController {
 					$this->redirect(array('action' => 'edit', $this->Comment->getInsertID()));
 				}
 			} else {
-				$this->Session->setFlash(__('The Comment could not be saved. Please, try again.', true));
+				$this->Session->setFlash(__('The Comment could not be saved. Please, try again.', true), 'flash_bad');
 			}
 		}
 		$posts = $this->Comment->Post->find('list');
@@ -39,19 +39,19 @@ class CommentsController extends AppController {
 
 	function edit($id = null) {
 		if (!$id && empty($this->data)) {
-			$this->Session->setFlash(__('Invalid Comment', true));
+			$this->Session->setFlash(__('Invalid Comment', true), 'flash_bad');
 			$this->redirect(array('action'=>'index'));
 		}
 		if (!empty($this->data)) {
 			if ($this->Comment->save($this->data)) {
-				$this->Session->setFlash(__('The Comment has been saved', true));
+				$this->Session->setFlash(__('The Comment has been saved', true), 'flash_good');
 				if (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save', true)) {
 					$this->History->back(0);
 				} else {
 					$this->History->back();
 				}
 			} else {
-				$this->Session->setFlash(__('The Comment could not be saved. Please, try again.', true));
+				$this->Session->setFlash(__('The Comment could not be saved. Please, try again.', true), 'flash_bad');
 			}
 		}
 		if (empty($this->data)) {
@@ -63,11 +63,11 @@ class CommentsController extends AppController {
 
 	function delete($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for Comment', true));
+			$this->Session->setFlash(__('Invalid id for Comment', true), 'flash_bad');
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->Comment->del($id)) {
-			$this->Session->setFlash(__('Comment deleted', true));
+			$this->Session->setFlash(__('Comment deleted', true), 'flash_good');
 			$this->redirect(array('action'=>'index'));
 		}
 	}
@@ -80,7 +80,7 @@ class CommentsController extends AppController {
 
 	function admin_view($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid Comment.', true));
+			$this->Session->setFlash(__('Invalid Comment.', true), 'admin_flash_bad');
 			$this->redirect(array('action'=>'index'));
 		}
 		$this->set('comment', $this->Comment->read(null, $id));
@@ -90,7 +90,7 @@ class CommentsController extends AppController {
 		if (!empty($this->data)) {
 			$this->Comment->create();
 			if ($this->Comment->save($this->data)) {
-				$this->Session->setFlash(__('The Comment has been saved', true));
+				$this->Session->setFlash(__('The Comment has been saved', true), 'admin_flash_good');
 				if (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save and Add Another', true)) {
 					$this->History->back(0);
 				} elseif (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save and Go Back', true)) {
@@ -99,7 +99,7 @@ class CommentsController extends AppController {
 					$this->redirect(array('action' => 'edit', $this->Comment->getInsertID()));
 				}
 			} else {
-				$this->Session->setFlash(__('The Comment could not be saved. Please, try again.', true));
+				$this->Session->setFlash(__('The Comment could not be saved. Please, try again.', true), 'admin_flash_bad');
 			}
 		}
 		$posts = $this->Comment->Post->find('list');
@@ -108,19 +108,19 @@ class CommentsController extends AppController {
 
 	function admin_edit($id = null) {
 		if (!$id && empty($this->data)) {
-			$this->Session->setFlash(__('Invalid Comment', true));
+			$this->Session->setFlash(__('Invalid Comment', true), 'admin_flash_bad');
 			$this->redirect(array('action'=>'index'));
 		}
 		if (!empty($this->data)) {
 			if ($this->Comment->save($this->data)) {
-				$this->Session->setFlash(__('The Comment has been saved', true));
+				$this->Session->setFlash(__('The Comment has been saved', true), 'admin_flash_good');
 				if (isset($this->params['form']['submit']) && $this->params['form']['submit'] == __('Save', true)) {
 					$this->History->back(0);
 				} else {
 					$this->History->back();
 				}
 			} else {
-				$this->Session->setFlash(__('The Comment could not be saved. Please, try again.', true));
+				$this->Session->setFlash(__('The Comment could not be saved. Please, try again.', true), 'admin_flash_bad');
 			}
 		}
 		if (empty($this->data)) {
@@ -132,11 +132,11 @@ class CommentsController extends AppController {
 
 	function admin_delete($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for Comment', true));
+			$this->Session->setFlash(__('Invalid id for Comment', true), 'admin_flash_bad');
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->Comment->del($id)) {
-			$this->Session->setFlash(__('Comment deleted', true));
+			$this->Session->setFlash(__('Comment deleted', true), 'admin_flash_good');
 			$this->redirect(array('action'=>'index'));
 		}
 	}
