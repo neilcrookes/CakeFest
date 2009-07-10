@@ -2,6 +2,7 @@
 <h2 class="title"><?php echo "<?php __('{$pluralHumanName}');?>";?></h2>
 <div class="content">
 <div class="inner">
+<?php echo "<?php if (!empty(\${$pluralVar})) : ?>"; ?>
 <?php echo "<?php echo \$this->element('admin_pagination_count'); ?>"; ?>
 <table cellpadding="0" cellspacing="0" class="table">
 <tr>
@@ -65,6 +66,9 @@ echo "<?php endforeach; ?>\n";
 ?>
 </table><div class="actions-bar">
 <?php echo "<?php echo \$this->element('admin_pagination_links'); ?>"; ?>
+<?php echo "<?php else : ?>"; ?>
+<p><?php echo "<?php __('No results'); ?>"; ?></p>
+<?php echo "<?php endif; ?>"; ?>
 <div class="clear"></div></div></div></div></div></div>
 <div id="sidebar"><div class="block"><h3>Actions</h3>
 	<ul class="navigation">
