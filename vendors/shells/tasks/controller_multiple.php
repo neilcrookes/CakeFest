@@ -165,7 +165,13 @@ class ControllerMultipleTask extends ControllerTask {
 		$actions .= "\t\t\tif (\$this->{$currentModelName}->save(\$this->data)) {\n";
 		if ($wannaUseSession) {
 			$actions .= "\t\t\t\t\$this->Session->setFlash(__('The ".$singularHumanName." has been saved', true));\n";
-			$actions .= "\t\t\t\t\$this->redirect(array('action'=>'index'));\n";
+      $actions .= "\t\t\t\tif (isset(\$this->params['form']['submit']) && \$this->params['form']['submit'] == __('Save and Add Another', true)) {\n";
+      $actions .= "\t\t\t\t\t\$this->History->back(0);\n";
+      $actions .= "\t\t\t\t} elseif (isset(\$this->params['form']['submit']) && \$this->params['form']['submit'] == __('Save and Go Back', true)) {\n";
+      $actions .= "\t\t\t\t\t\$this->History->back();\n";
+      $actions .= "\t\t\t\t} else {\n";
+      $actions .= "\t\t\t\t\t\$this->redirect(array('action' => 'edit', \$this->{$currentModelName}->getInsertID()));\n";
+      $actions .= "\t\t\t\t}\n";
 		} else {
 			$actions .= "\t\t\t\t\$this->flash(__('{$currentModelName} saved.', true), array('action'=>'index'));\n";
 		}
@@ -220,7 +226,11 @@ class ControllerMultipleTask extends ControllerTask {
 		$actions .= "\t\t\tif (\$this->{$currentModelName}->save(\$this->data)) {\n";
 		if ($wannaUseSession) {
 			$actions .= "\t\t\t\t\$this->Session->setFlash(__('The ".$singularHumanName." has been saved', true));\n";
-			$actions .= "\t\t\t\t\$this->redirect(array('action'=>'index'));\n";
+      $actions .= "\t\t\t\tif (isset(\$this->params['form']['submit']) && \$this->params['form']['submit'] == __('Save', true)) {\n";
+      $actions .= "\t\t\t\t\t\$this->History->back(0);\n";
+      $actions .= "\t\t\t\t} else {\n";
+      $actions .= "\t\t\t\t\t\$this->History->back();\n";
+      $actions .= "\t\t\t\t}\n";
 		} else {
 			$actions .= "\t\t\t\t\$this->flash(__('The ".$singularHumanName." has been saved.', true), array('action'=>'index'));\n";
 		}
